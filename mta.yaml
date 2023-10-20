@@ -8,6 +8,7 @@ build-parameters:
   before-all:
     - builder: custom
       commands:
+        - npm ci
         - npx cds build --production
 modules:
   - name: risk-management-srv
@@ -58,11 +59,12 @@ resources:
       service-plan: application
       path: ./xs-security.json
       config:
-      oauth2-configuration:
-        redirect-uris:
-          - https://*.cfapps.us10-001.hana.ondemand.com/login/callback
         xsappname: risk-management-${org}-${space}
         tenant-mode: dedicated
+        oauth2-configuration:
+          redirect-uris:
+            - https://**.cfapps.us10-001.hana.ondemand.com/login/callback
+          
   - name: risk-management-db
     type: com.sap.xs.hdi-container
     parameters:
